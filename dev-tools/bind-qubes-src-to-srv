@@ -1,0 +1,53 @@
+#!/bin/bash
+# vim: set ts=4 sw=4 sts=4 et :
+
+# Bind mount or dis-mount 'mgmt-salt'* repos to proper '/srv' directories
+#
+# Usage:
+#   bind-qubes-src-to-srv [--mount [QUBES_SRC_DIR]]
+
+MODE="${1}"
+QUBES_SRC_DIR="${2-/home/user/qubes/qubes-src}"
+
+if [ "${MODE##*-}" == 'help' ]; then
+    echo 'Usage:'
+    echo '  bind-qubes-src-to-srv [--mount [QUBES_SRC_DIR]]'
+    echo
+    echo "  QUBES_SRC_DIR:  Path of qubes-builder 'qubes-src' directory. (default: "${QUBES_SRC_DIR}")"
+    exit 0
+fi
+
+PATH_MAP=(
+    ""${QUBES_SRC_DIR}"/mgmt-salt/etc/salt:/etc/salt"
+    ""${QUBES_SRC_DIR}"/mgmt-salt/srv/salt:/srv/salt"
+    ""${QUBES_SRC_DIR}"/mgmt-salt/srv/pillar:/srv/pillar"
+    ""${QUBES_SRC_DIR}"/mgmt-salt-all-privacy:/srv/formulas/all/privacy-formula"
+    ""${QUBES_SRC_DIR}"/mgmt-salt-all-theme:/srv/formulas/all/theme-formula"
+    ""${QUBES_SRC_DIR}"/mgmt-salt-all-vim:/srv/formulas/all/vim-formula"
+    ""${QUBES_SRC_DIR}"/mgmt-salt-base:/srv/formulas/base/qubes-base"
+    ""${QUBES_SRC_DIR}"/mgmt-salt-base-gpg:/srv/formulas/base/gpg-formula"
+    ""${QUBES_SRC_DIR}"/mgmt-salt-base-overrides:/srv/formulas/base/qubes-overrides"
+    ""${QUBES_SRC_DIR}"/mgmt-salt-base-salt:/srv/formulas/base/salt-formula"
+    ""${QUBES_SRC_DIR}"/mgmt-salt-base-topd:/srv/formulas/base/topd-formula"
+    ""${QUBES_SRC_DIR}"/mgmt-salt-base-yamlscript-renderer:/srv/formulas/base/yamlscript-formula"
+    ""${QUBES_SRC_DIR}"/mgmt-salt-base-yamlscript-users:/srv/formulas/base/users-yamlscript-formula"
+    ""${QUBES_SRC_DIR}"/mgmt-salt-dev:/srv/formulas/dev/development-tools"
+    ""${QUBES_SRC_DIR}"/mgmt-salt-vm-python-pip:/srv/formulas/vm/python-pip-formula"
+)
+
+
+for path in "${PATH_MAP[@]}"; do
+    source="${path%%:*}"
+    target="${path##*:}"
+    if [ "$1" == '--mount' ]; then
+        if ! sudo mountpoint -q "${target}"; then
+            echo "bind mount: ${source} ${target}"
+            sudo mount --bind "${source}" "${target}"
+        else
+            echo "bind exists: ${target}"
+        fi
+    else
+        echo "bind remove: ${target}"
+        sudo umount "${target}" >/dev/null 2>&1 || true
+    fi
+done
