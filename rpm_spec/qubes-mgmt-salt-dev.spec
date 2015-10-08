@@ -27,30 +27,14 @@ URL:	   http://www.qubes-os.org/
 Group:     System administration tools
 BuildArch: noarch
 Requires:  qubes-mgmt-salt-base
-Requires:  qubes-mgmt-salt-config
+#Requires:  qubes-mgmt-salt-config
+Requires:  qubes-mgmt-template
 Requires:  qubes-mgmt-salt-all-vim
 
 %define _builddir %(pwd)
 
 %description
 Various tools and scripts for qubes-mgmt-salt development.
-
-%package dom0-formulas
-Summary:   All Qubes+Salt Management dom0 formula dependencies.
-Group:     System administration tools
-BuildArch: noarch
-Requires(post): /usr/bin/salt-call
-Conflicts:  qubes-mgmt-salt-vm
-
-%description dom0-formulas
-All Qubes+Salt Management dom0 formula dependencies.
-
-%prep
-# we operate on the current directory, so no need to unpack anything
-# symlink is to generate useful debuginfo packages
-rm -f %{name}-%{version}
-ln -sf . %{name}-%{version}
-%setup -T -D
 
 %build
 
@@ -63,7 +47,7 @@ qubesctl state.sls qubes.config -l quiet --out quiet > /dev/null || true
 qubesctl saltutil.sync_all -l quiet --out quiet > /dev/null || true
 
 # Enable States
-qubesctl topd.enable bind saltenv=%{saltenv} -l quiet --out quiet > /dev/null || true
+#qubesctl topd.enable bind saltenv=%{saltenv} -l quiet --out quiet > /dev/null || true
 
 %files
 %defattr(-,root,root)
