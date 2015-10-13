@@ -355,10 +355,10 @@ def mount(*paths, **kwargs):
     #return _bind(paths, saltenv=saltenv)
     #return _test_paths(paths, saltenv=saltenv)
 
-    #return __salt__['topd.report']()
-    #return __salt__['topd.enabled']()
-    return __salt__['topd.status']()
-    #return __salt__['topd.is_enabled']('topd.base|salt.directories',
+    #return __salt__['top.report']()
+    #return __salt__['top.enabled']()
+    return __salt__['top.status']()
+    #return __salt__['top.is_enabled']('topd.base|salt.directories',
     #                                   'topd.dev|bind')
 
 #def all(saltenv=None):
