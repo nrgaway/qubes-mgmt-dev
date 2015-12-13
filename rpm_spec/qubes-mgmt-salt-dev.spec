@@ -1,19 +1,9 @@
-%{!?version: %define version %(make get-version)}
-%{!?rel: %define rel %(make get-release)}
-%{!?package_name: %define package_name %(make get-package_name)}
-%{!?package_summary: %define package_summary %(make get-summary)}
-%{!?package_description: %define package_description %(make get-description)}
+%{!?version: %define version %(cat version)}
 
-%{!?formula_name: %define formula_name %(make get-formula_name)}
-%{!?state_name: %define state_name %(make get-state_name)}
-%{!?saltenv: %define saltenv %(make get-saltenv)}
-%{!?pillar_dir: %define pillar_dir %(make get-pillar_dir)}
-%{!?formula_dir: %define formula_dir %(make get-formula_dir)}
-
-Name:      %{package_name}
+Name:      qubes-mgmt-salt-dev
 Version:   %{version}
-Release:   %{rel}%{?dist}
-Summary:   %{package_summary}
+Release:   1%{?dist}
+Summary:   Various tools and scripts for qubes-mgmt-salt development
 License:   GPL 2.0
 URL:	   http://www.qubes-os.org/
 
@@ -28,7 +18,7 @@ Requires:  qubes-mgmt-salt-all-gnugp
 %define _builddir %(pwd)
 
 %description
-%{package_description}
+Various tools and scripts for qubes-mgmt-salt development
 
 %build
 
