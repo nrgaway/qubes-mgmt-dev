@@ -15,7 +15,6 @@ Requires:  qubes-mgmt-salt-dom0-formulas
 BuildRequires: PyYAML
 BuildRequires: tree
 Requires(post): /usr/bin/qubesctl
-Conflicts:  qubes-mgmt-salt-vm
 
 %define _builddir %(pwd)
 
