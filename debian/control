@@ -12,9 +12,39 @@ Package: qubes-mgmt-salt-dev
 Section: admin
 Architecture: all
 Depends: 
-  qubes-mgmt-salt,
-  qubes-mgmt-salt-template,
-  qubes-mgmt-salt-all-vim,
-  qubes-mgmt-salt-all-yamlscript-renderer,
-  qubes-mgmt-salt-all-gnugp
-Description: Various tools and scripts for qubes-mgmt-salt development.
+    qubes-mgmt-salt
+Recommends:
+    qubes-mgmt-salt-all-gnupg,
+    qubes-mgmt-salt-all-privacy,
+    qubes-mgmt-salt-all-salt,
+    qubes-mgmt-salt-all-theme,
+    qubes-mgmt-salt-all-yamlscript-renderer,
+    qubes-mgmt-salt-all-yamlscript-users,
+    qubes-mgmt-salt-all-vim
+Suggests:
+    qubes-mgmt-salt-shared-formulas
+Description: All 'shared' Qubes+Salt Management development formulas.
+
+Package: qubes-mgmt-salt-dev-dom0
+Section: admin
+Architecture: all
+Depends: 
+    qubes-mgmt-salt-dev,
+    qubes-mgmt-salt-dom0
+Recommends:
+    qubes-mgmt-salt-dom0-fix-permissions,
+    qubes-mgmt-salt-dom0-policy-qubesbuilder,
+    qubes-mgmt-salt-dom0-template-upgrade
+Suggests:
+    qubes-mgmt-salt-dom0-formulas
+Description: All 'dom0' Qubes+Salt Management development formulas.
+
+Package: qubes-mgmt-salt-dev-vm
+Section: admin
+Architecture: all
+Depends: 
+    qubes-mgmt-salt-dev,
+    qubes-mgmt-salt-vm
+Suggests:
+    qubes-mgmt-salt-vm-formulas
+Description: All 'vm' Qubes+Salt Management development formulas.

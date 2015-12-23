@@ -9,9 +9,10 @@ URL:	   http://www.qubes-os.org/
 
 Group:     System administration tools
 BuildArch: noarch
-Requires:  qubes-mgmt-salt
-Requires:  qubes-mgmt-salt-extra-formulas
+Requires:  qubes-mgmt-salt-dev
+Requires:  qubes-mgmt-salt-vm
 Requires:  qubes-mgmt-salt-vm-formulas
+Requires:  qubes-mgmt-salt-vm-python-pip
 BuildRequires: PyYAML
 BuildRequires: tree
 Requires(post): /usr/bin/qubesctl
